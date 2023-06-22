@@ -1,8 +1,8 @@
-interface RootObject {
+export interface Response {
   meals: Meal[];
 }
 
-interface Meal {
+export interface Meal {
   idMeal: string;
   strMeal: string;
   strDrinkAlternate?: any;
@@ -57,3 +57,5 @@ interface Meal {
   strCreativeCommonsConfirmed?: any;
   dateModified?: any;
 }
+
+
