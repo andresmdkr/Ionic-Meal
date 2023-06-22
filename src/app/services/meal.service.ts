@@ -21,5 +21,20 @@ getMealDetail(id: number){
   return this.http.get<Response>(url)
 }
 
+getMealByName(name: string){
+  const url = this.apiUrl + 'search.php?s='+name;
+  return this.http.get<Response>(url)
 }
 
+getMealByCategory(category: string){
+  const url = this.apiUrl + 'filter.php?c='+category;
+  return this.http.get<Response>(url)
+
+}
+
+getAllCategories(){
+  const url = this.apiUrl + 'list.php?c=list';
+  return this.http.get<Response>(url)
+}
+
+}

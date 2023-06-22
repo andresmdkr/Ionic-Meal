@@ -1,6 +1,6 @@
-import { Component,OnInit } from '@angular/core';
-import{MealService} from '../services/meal.service'
-import {Meal} from '../interfaces/interfaces'
+import { Component, OnInit } from '@angular/core';
+import { MealService } from '../services/meal.service';
+import { Meal, Response } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -9,16 +9,37 @@ import {Meal} from '../interfaces/interfaces'
 })
 export class Tab1Page implements OnInit {
 
-  arregloMeals:Meal[]=[];
-  constructor(private mealService:MealService) {}
-  ngOnInit(){
-    this.mealService.getMeals().subscribe(data => {
+  arregloMeals: Meal[] = [];
+  arregloCategories: Meal[] = [];
+  filteredMeals: Meal[] = [];
+
+  constructor(private mealService: MealService) {}
+
+  ngOnInit() {
+    this.mealService.getMeals().subscribe((data: Response) => {
       console.log(data.meals);
-      this.arregloMeals=data.meals;
+      this.arregloMeals = data.meals;
+      this.filteredMeals = data.meals; // Inicialmente muestra todas las comidas
     });
-    this.mealService.getMealDetail(52772).subscribe(data => {
+
+    this.mealService.getAllCategories().subscribe((data: Response) => {
       console.log(data.meals);
+      this.arregloCategories = data.meals;
     });
   }
 
+  onSelectCategory(event: any) {
+    const selectedCategory = event.detail.value;
+    if (selectedCategory === 'All') {
+      this.filteredMeals = this.arregloMeals; // Mostrar todas las comidas si se selecciona 'All'
+    } else {
+      this.mealService.getMealByCategory(selectedCategory).subscribe((data: Response) => {
+        console.log(data.meals);
+        this.filteredMeals = data.meals;
+      });
+    }
+  }
 }
+
+
+
