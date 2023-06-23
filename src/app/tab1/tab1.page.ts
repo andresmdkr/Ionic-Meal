@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MealService } from '../services/meal.service';
 import { Meal, Response } from '../interfaces/interfaces';
-import { LoadingController } from '@ionic/angular';
+import {AlertController, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -15,7 +16,8 @@ export class Tab1Page implements OnInit {
   filteredMeals: Meal[] = [];
 
   constructor(private mealService: MealService,
-    private loadingController: LoadingController) {}
+    private alertController: AlertController,
+    private loadingController: LoadingController,private router: Router) {}
 
   async ngOnInit() {
     const loading = await this.loadingController.create({
@@ -53,6 +55,33 @@ export class Tab1Page implements OnInit {
       });
       
     }
+  }
+
+  async verInfoMeal(id:any) {
+    this.mealService.getMealDetail(id).subscribe(async (data: Response) =>{
+      console.log(data.meals);
+      const alert = await this.alertController.create({
+        header: data.meals[0].strMeal,
+        subHeader: data.meals[0].strArea,
+        message: data.meals[0].strInstructions,
+        buttons: [
+          {
+            text: 'Detalles',
+            handler: () => {
+              this.router.navigate(['../meal-detail/', id]);
+            },
+          },
+          {
+            text: 'Agregar a Favoritas',
+            handler: () => {
+              console.log('Holis');
+            },
+          },
+        ],
+      });
+  
+      await alert.present();
+    })
   }
 }
 
