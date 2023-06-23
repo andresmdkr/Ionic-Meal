@@ -36,15 +36,22 @@ export class Tab1Page implements OnInit {
     });
   }
 
-  onSelectCategory(event: any) {
+  async onSelectCategory(event: any) {
+    const loading = await this.loadingController.create({
+      message:"Cargando seleccion..."
+    });
     const selectedCategory = event.detail.value;
+    
     if (selectedCategory === 'All') {
       this.filteredMeals = this.arregloMeals; // Mostrar todas las comidas si se selecciona 'All'
     } else {
+      loading.present();
       this.mealService.getMealByCategory(selectedCategory).subscribe((data: Response) => {
         console.log(data.meals);
         this.filteredMeals = data.meals;
+        loading.dismiss();
       });
+      
     }
   }
 }
