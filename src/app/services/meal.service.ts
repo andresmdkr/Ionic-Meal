@@ -47,15 +47,30 @@ getAllCategories(){
   return this.http.get<Response>(url)
 }
 
-  async agregarMealFavoritas(meal:Meal){
- /*  this.mealsfavoritas =  await this._storage?.get("mealfavoritas");  */
-  this.mealsfavoritas.push(meal);
+async agregarMealFavoritas(meal: Meal) {
+  const favoritas = await this._storage?.get("mealsfavoritas");
+
+  if (!Array.isArray(favoritas)) {
+    this.mealsfavoritas.push(meal);
+  } else {
+    const exists = favoritas.some((favMeal: Meal) => favMeal.idMeal === meal.idMeal);
+    if (!exists) {
+      favoritas.push(meal);
+      this.mealsfavoritas = favoritas;
+    }
+  }
+
   this._storage?.set("mealsfavoritas", this.mealsfavoritas);
 }
 
   async obtenerfavoritas(){
   const comidasFavoritas = await this._storage?.get("mealsfavoritas");
   return comidasFavoritas
+}
+
+borrarFavorita(meal: Meal) {
+  this.mealsfavoritas = this.mealsfavoritas.filter((mealFav: Meal) => mealFav.idMeal !== meal.idMeal);
+  this._storage?.set("mealsfavoritas", this.mealsfavoritas);
 }
 
 }
