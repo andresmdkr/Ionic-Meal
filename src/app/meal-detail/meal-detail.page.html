@@ -1,9 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Detalle</ion-title>
+    <ion-title>Meal Detail</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
+    
+  <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <ion-fab-button  color="danger" (click)="goToHome()">
+      <ion-icon name="arrow-back-outline" ></ion-icon>
+    </ion-fab-button>
+    
+  </ion-fab>
+  <ion-card>
+    <ion-item >
+      <ion-thumbnail slot="start" style="width: 200px; height: 200px;">
+        <img alt="Silhouette of mountains" src={{Meal[0]?.strMealThumb}}   />
+      </ion-thumbnail>
+      <ion-title>{{ Meal[0]?.strMeal }}</ion-title>
+    </ion-item>
+      <ion-card-header>
+      <ion-card-title>Instructions</ion-card-title>
+      <ion-card-content>{{Meal[0]?.strInstructions}}</ion-card-content>
+    </ion-card-header>
+    
+    
+    
+  </ion-card>
+
   
 </ion-content>
