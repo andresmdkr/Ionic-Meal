@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'meal-detail/:id',
     loadChildren: () => import('./meal-detail/meal-detail.module').then( m => m.MealDetailPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   }
 
 ];

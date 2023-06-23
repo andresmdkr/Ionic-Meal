@@ -27,6 +27,11 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/meals',
         pathMatch: 'full'
+      },
+      {
+        path: '**',
+        redirectTo: '/tabs/meals',
+        pathMatch: 'full'
       }
     ]
   },
