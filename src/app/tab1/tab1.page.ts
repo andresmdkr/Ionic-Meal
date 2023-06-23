@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MealService } from '../services/meal.service';
 import { Meal, Response } from '../interfaces/interfaces';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -13,13 +14,20 @@ export class Tab1Page implements OnInit {
   arregloCategories: Meal[] = [];
   filteredMeals: Meal[] = [];
 
-  constructor(private mealService: MealService) {}
+  constructor(private mealService: MealService,
+    private loadingController: LoadingController) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    const loading = await this.loadingController.create({
+      message:"Cargando comidas..."
+    });
+
+    loading.present();
     this.mealService.getMeals().subscribe((data: Response) => {
       console.log(data.meals);
       this.arregloMeals = data.meals;
       this.filteredMeals = data.meals; // Inicialmente muestra todas las comidas
+      loading.dismiss();
     });
 
     this.mealService.getAllCategories().subscribe((data: Response) => {
