@@ -7,5 +7,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="3" *ngFor="let meal of arregloMealsFavoritas">
+        <ion-card (click)="verInfoMeal(meal.idMeal)">
+          <ion-card-header>
+            <ion-img src="{{ meal.strMealThumb }}"></ion-img>
+            <ion-card-title>{{ meal.strMeal }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

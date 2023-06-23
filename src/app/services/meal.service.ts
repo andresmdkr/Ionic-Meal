@@ -48,13 +48,13 @@ getAllCategories(){
 }
 
   async agregarMealFavoritas(meal:Meal){
-  this.mealsfavoritas = await this._storage?.get("mealfavoritas");
+ /*  this.mealsfavoritas =  await this._storage?.get("mealfavoritas");  */
   this.mealsfavoritas.push(meal);
-  this._storage?.set("mealfavoritas", this.mealsfavoritas);
+  this._storage?.set("mealsfavoritas", this.mealsfavoritas);
 }
 
   async obtenerfavoritas(){
-  const comidasFavoritas = await this._storage?.get("mealfavoritas");
+  const comidasFavoritas = await this._storage?.get("mealsfavoritas");
   return comidasFavoritas
 }
 
