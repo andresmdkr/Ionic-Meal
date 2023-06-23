@@ -57,6 +57,8 @@ export class Tab1Page implements OnInit {
     }
   }
 
+  
+
   async verInfoMeal(id:any) {
     this.mealService.getMealDetail(id).subscribe(async (data: Response) =>{
       console.log(data.meals);
@@ -65,13 +67,13 @@ export class Tab1Page implements OnInit {
         subHeader: data.meals[0].strArea,
         buttons: [
           {
-            text: 'Detalles',
+            text:'Detalles 🔍',
             handler: () => {
               this.router.navigate(['../meal-detail/', id]);
             },
           },
-          {
-            text: 'Agregar a Favoritas',
+          { 
+            text: 'Agregar a Favoritas ❤️',
             handler: () => {
             this.mealService.agregarMealFavoritas(data.meals[0])
             },
