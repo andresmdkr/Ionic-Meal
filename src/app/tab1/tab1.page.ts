@@ -63,7 +63,6 @@ export class Tab1Page implements OnInit {
       const alert = await this.alertController.create({
         header: data.meals[0].strMeal,
         subHeader: data.meals[0].strArea,
-        message: data.meals[0].strInstructions,
         buttons: [
           {
             text: 'Detalles',
