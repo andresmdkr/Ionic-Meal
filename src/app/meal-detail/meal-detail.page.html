@@ -5,29 +5,59 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-    
   <ion-fab slot="fixed" vertical="top" horizontal="end" [edge]="true">
-    <ion-fab-button  color="danger" (click)="goToHome()">
-      <ion-icon name="arrow-back-outline" ></ion-icon>
+    <ion-fab-button color="danger" (click)="goToHome()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-fab-button>
-    
   </ion-fab>
-  <ion-card>
-    <ion-item >
-      <ion-thumbnail slot="start" style="width: 200px; height: 200px;">
-        <img alt="Silhouette of mountains" src={{Meal[0]?.strMealThumb}}   />
-      </ion-thumbnail>
-      <ion-title>{{ Meal[0]?.strMeal }}</ion-title>
-    </ion-item>
-      <ion-card-header>
-      <ion-card-title>Instructions</ion-card-title>
-      <ion-card-content>{{Meal[0]?.strInstructions}}</ion-card-content>
-    </ion-card-header>
-    
-    
-    
-  </ion-card>
 
-  
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <div class="thumbnail-container">
+              <img alt="Silhouette of mountains" src="{{Meal[0]?.strMealThumb}}" />
+            </div>
+            <ion-title>{{ Meal[0]?.strMeal }}</ion-title>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>Instructions</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ Meal[0]?.strInstructions }}</ion-card-content>
+          <ion-card-content>
+            <a href="{{ Meal[0]?.strYoutube }}" target="_blank">Watch Video Tutorial</a>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>Category</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ Meal[0]?.strCategory }}</ion-card-content>
+        </ion-col>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>Area</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ Meal[0]?.strArea }}</ion-card-content>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>Tags</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>{{ Meal[0]?.strTags }}</ion-card-content>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
 </ion-content>
+
