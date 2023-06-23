@@ -74,7 +74,7 @@ export class Tab1Page implements OnInit {
           {
             text: 'Agregar a Favoritas',
             handler: () => {
-              console.log('Holis');
+            this.mealService.agregarMealFavoritas(data.meals[0])
             },
           },
         ],
