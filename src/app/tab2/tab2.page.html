@@ -26,7 +26,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
+  <div *ngIf="showNoResultsMessage===false && searchResults.length === 0" class="no-results-message1">
+    Search here ☝
+    <br>
+    <br>
+    No meal has been searched yet. 
+  </div>
   <div *ngIf="showNoResultsMessage && searchResults.length === 0" class="no-results-message">
     No se encontraron resultados.
   </div>
