@@ -8,8 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-toolbar>
-    <ion-searchbar (ionChange)="search($event)"
-      placeholder="Search"></ion-searchbar>
+    <ion-searchbar (ionChange)="search($event)" placeholder="Search"></ion-searchbar>
     <ion-button (click)="resetSearch()" fill="clear" slot="end">
       Reset
     </ion-button>
@@ -28,5 +27,7 @@
     </ion-row>
   </ion-grid>
 
-
+  <div *ngIf="showNoResultsMessage && searchResults.length === 0" class="no-results-message">
+    No se encontraron resultados.
+  </div>
 </ion-content>

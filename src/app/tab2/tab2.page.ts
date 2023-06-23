@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MealService } from '../services/meal.service';
 import { Meal, Response } from '../interfaces/interfaces';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -11,20 +12,36 @@ export class Tab2Page {
   searchResults: Meal[] = [];
   showNoResultsMessage: boolean = false;
 
-  constructor(private mealService: MealService) {
+  constructor(private mealService: MealService,private loadingController: LoadingController) {
     this.searchResults = [];
   }
-  search(event: any) {
+
+  async search(event: any) {
     const searchQuery = event.detail.value;
+
+    //Loading
+    const loading = await this.loadingController.create({
+      message:"Buscando..."
+    });
+    
+
     if (searchQuery && searchQuery.trim() !== '') {
+      loading.present();
       this.mealService.getMealByName(searchQuery).subscribe((data: Response) => {
         console.log(data.meals);
-        this.searchResults = data.meals;
-        this.showNoResultsMessage = this.searchResults.length === 0; // Mostrar el mensaje si no se obtienen resultados
+        if (data.meals === null) {
+          this.searchResults = [];
+          this.showNoResultsMessage = true; // Mostrar el mensaje si no se obtienen resultados
+          loading.dismiss();
+        } else {
+          this.searchResults = data.meals;
+          this.showNoResultsMessage = false;
+          loading.dismiss();
+        }
       });
     } else {
-      this.searchResults = []; // Reiniciar los resultados de búsqueda si la consulta está vacía
-      this.showNoResultsMessage = false; // Ocultar el mensaje cuando se realiza una búsqueda vacía
+      this.searchResults = [];
+      this.showNoResultsMessage = false;
     }
   }
 
@@ -33,4 +50,3 @@ export class Tab2Page {
     this.showNoResultsMessage = false;
   }
 }
-
