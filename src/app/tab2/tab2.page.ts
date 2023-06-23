@@ -65,10 +65,10 @@ export class Tab2Page {
               this.router.navigate(['../meal-detail/', id]);
             },
           },
-          {
+          { 
             text: 'Agregar a Favoritas ❤️',
             handler: () => {
-              console.log('Holis');
+            this.mealService.agregarMealFavoritas(data.meals[0])
             },
           },
         ],
