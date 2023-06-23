@@ -8,6 +8,7 @@ import { Meal, Response } from '../interfaces/interfaces';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+<<<<<<< HEAD
   searchResults: Meal[] = [];
   showNoResultsMessage: boolean = false;
 
@@ -27,6 +28,10 @@ export class Tab2Page {
       this.showNoResultsMessage = false; // Ocultar el mensaje cuando se realiza una búsqueda vacía
     }
   }
+=======
+//buscar()
+  constructor() {}
+>>>>>>> 28e3c1f92022fef4fab5c1eb596db5390f646a51
 
   resetSearch() {
     this.searchResults = [];
