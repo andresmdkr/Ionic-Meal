@@ -1,14 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Response,Meal } from '../interfaces/interfaces';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealService {
+  private _storage: Storage | null = null;
   apiUrl = 'https://themealdb.com/api/json/v1/1/';
-  constructor(private http:HttpClient) { 
 
+  mealsfavoritas: Meal[] = []
+
+  constructor(private http:HttpClient, private storage: Storage) { 
+    this.init()
+}
+async init() {
+  // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+  const storage = await this.storage.create();
+  this._storage = storage;
 }
 
 getMeals() {
@@ -16,7 +26,7 @@ getMeals() {
   return this.http.get<Response>(url);
 }
 
-getMealDetail(id: number){
+getMealDetail(id: any){
   const url = this.apiUrl + 'lookup.php?i='+id;
   return this.http.get<Response>(url)
 }
@@ -35,6 +45,11 @@ getMealByCategory(category: string){
 getAllCategories(){
   const url = this.apiUrl + 'list.php?c=list';
   return this.http.get<Response>(url)
+}
+
+agregarMealFavoritas(meal:Meal){
+  this.mealsfavoritas.push(meal);
+  this._storage?.set("favoritas", this.mealsfavoritas);
 }
 
 }
